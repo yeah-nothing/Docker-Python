@@ -1,11 +1,8 @@
-FROM python:3.6-alpine as base
-FROM base as builder
-RUN mkdir /install
-WORKDIR /install
-COPY requirements.txt /requirements.txt
-RUN pip install --install-option="--prefix=/install" -r /requirements.txt
-FROM base
-COPY --from=builder /install /usr/local
-COPY src /app
-WORKDIR /app
-CMD ["gunicorn", "-w 4", "main:app"]
+FROM ubuntu:18.04
+RUN apt-get update -y
+RUN apt-get install -y nano
+RUN apt-get install -y git
+RUN apt-get install -y python3
+RUN apt install -y python3-pip
+RUN apt install -y build-essential libssl-dev libffi-dev python3-dev
+RUN apt install -y python3-venv
